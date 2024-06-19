@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the source code from your version control system
+                // For example, if using Git:
+                git 'https://github.com/your-repo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Install required build tools (e.g., GCC)
+                // This step may vary depending on your build environment
+                sh 'apt-get update && apt-get install -y build-essential'
+
+                // Compile the C++ code using the appropriate build command
+                // For example, using g++:
+                sh 'g++ -o myprogram main.cpp'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run tests if applicable
+                // Add commands to run your tests here
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Deploy the built artifacts
+                // Add commands to deploy your program here
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up or perform post-build actions
+        }
+
+        success {
+            // Actions to perform when the build is successful
+        }
+
+        failure {
+            // Actions to perform when the build fails
+        }
+    }
+}
